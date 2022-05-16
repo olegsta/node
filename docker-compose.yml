@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  frontend:
+    build: ./frontend
+    command: npm start
+    container_name: node-frontend
+    restart: unless-stopped
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+    # stdin_open: true
+    # tty: true
+    volumes:
+      - ./frontend/src:/usr/src/app/src
+
+  api:
+    build: ./api
+    command: npm run start
+    container_name: node-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - HOST=http://google.com
+      - MONGO_URL=mongodb://mongo_db:27017/api
+    depends_on: 
+      - mongo_db
+  
+  auth:
+    build: ./auth
+    command: npm run start
+    container_name:  node-auth
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - HOST=http://google.com
+      - MONGO_URL=mongodb://mongodb_auth:27017/auth   
+    depends_on:
+      - mongodb_auth 
+
+  mongodb_auth:
+    image: mongo:latest
+    container_name: node-api-db-auth
+    volumes:
+      - mongodb_auth:/data/db
+
+  mongo_db:
+    image: mongo:latest
+    container_name: node-api-db
+    volumes:
+      - mongodb_api:/data/db
+ 
+volumes:
+  mongodb_api:
+  mongodb_auth:
