@@ -1,14 +1,15 @@
 import logo from './logo.svg';
+import monya from './monya.jpeg';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          From monya with love
         </p>
+        <img src={monya} className="App-logo" alt="logo" />
         <a
           className="App-link"
           href="https://reactjs.org"

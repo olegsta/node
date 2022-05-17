@@ -3,17 +3,13 @@ version: '3'
 services:
   frontend:
     build: ./frontend
-    command: npm start
+    command: serve -s build -l 3002
     container_name: node-frontend
     restart: unless-stopped
-    ports:
-      - "3002:3002"
+    # ports:
+    #   - "3002:3002"
     environment:
       - PORT=3002
-    # stdin_open: true
-    # tty: true
-    volumes:
-      - ./frontend/src:/usr/src/app/src
 
   api:
     build: ./api
@@ -26,6 +22,7 @@ services:
       - PORT=3000
       - HOST=http://google.com
       - MONGO_URL=mongodb://mongo_db:27017/api
+      - API_URL=http://auth:3001/api
     depends_on: 
       - mongo_db
   
@@ -48,6 +45,17 @@ services:
     container_name: node-api-db-auth
     volumes:
       - mongodb_auth:/data/db
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: node-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf.prod:/etc/nginx/conf.d/nginx.conf
+    depends_on:
+      - frontend
 
   mongo_db:
     image: mongo:latest

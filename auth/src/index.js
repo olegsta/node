@@ -7,6 +7,13 @@ app.get('/test', (req,res)=> {
     res.send("!!!!Our api server is working")
 })
 
+app.get('/api/currentUser', (req,res)=> {
+    res.json({
+        userId: "222",
+        email: "google.com"
+    })
+})
+
 const startServer = () => {
     app.listen(port, () => {
         console.log(`started auth api server ${port}`)
