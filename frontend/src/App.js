@@ -1,8 +1,14 @@
-import logo from './logo.svg';
 import monya from './monya.jpeg';
+import axios from 'axios';
 import './App.css';
 
 function App() {
+  const makeApiRequest = () => {
+    axios.get("/api/currentUserApi").then(response => {
+      console.log(response.data)
+    })
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -19,6 +25,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <button onClick={makeApiRequest}> Click</button>
     </div>
   );
 }

@@ -16,7 +16,7 @@ app.get('/test', (req,res)=> {
     console.log(Post)
 })
 
-app.get('/api/currentUserApi', (req,res)=> {
+app.get('/currentUserApi', (req,res)=> {
     res.json({
         userId: "111",
         email: "Apigoogle.com"
