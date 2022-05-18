@@ -1,9 +1,14 @@
 server {
     listen 80;
-    server_name monya.com;
+    server_name monya.ru;
 
     location / {
       proxy_pass http://frontend:3000;
+      # Need webdocket
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "Upgrade";
+      proxy_set_header Host $host;
     }
 
     location /api {

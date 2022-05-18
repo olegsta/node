@@ -2,12 +2,12 @@ version: '3'
 
 services:
   frontend:
-    build: ./frontend
-    command: serve -s build -l 3002
-    container_name: node-frontend
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: node-frontend  
+    command: serve -s build -l 3000
     restart: unless-stopped
-    environment:
-      - PORT=3000
     networks:
       - node  
 
