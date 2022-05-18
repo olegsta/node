@@ -16,6 +16,13 @@ app.get('/test', (req,res)=> {
     console.log(Post)
 })
 
+app.get('/api/currentUserApi', (req,res)=> {
+    res.json({
+        userId: "111",
+        email: "Apigoogle.com"
+    })
+})
+
 app.get('/testWithCurrentUser', (req,res)=> {
     console.log(apiUrl)
     axios.get(apiUrl + "/currentUser").then(response => {
